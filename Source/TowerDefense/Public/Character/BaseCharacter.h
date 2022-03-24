@@ -26,4 +26,14 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+protected:
+	class USpringArmComponent* SpringArmComponent;
+	class UCameraComponent* CameraComponent;
+	class UCapsuleComponent* CapsuleComponent;
+private:
+	void MoveForWard(float Value);
+	void MoveBack(float Value);
+	void MoveRight(float Value);
+	void MoveLeft(float Value);
+
 };
