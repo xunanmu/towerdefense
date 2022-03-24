@@ -58,6 +58,33 @@ void ABaseCharacter::Tick(float DeltaTime)
 void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	InputComponent->BindAxis("MoveForward",this,&ABaseCharacter::MoveForWard);
+	InputComponent->BindAxis("MoveBack",this,&ABaseCharacter::MoveBack);
+	InputComponent->BindAxis("MoveRight",this,&ABaseCharacter::MoveRight);
+	InputComponent->BindAxis("MoveLeft",this,&ABaseCharacter::MoveLeft);
+	InputComponent->BindAxis("LookUp",this,&APawn::AddControllerPitchInput);
+	InputComponent->BindAxis("Turn",this,&APawn::AddControllerYawInput);
 
 }
 
+
+void ABaseCharacter::MoveForWard(const float Value)
+{
+	const FVector ForwardVector = GetActorForwardVector();
+	AddMovementInput(ForwardVector,Value);
+}
+void ABaseCharacter::MoveBack(const float Value)
+{
+	const FVector BackVector = -GetActorForwardVector();
+	AddMovementInput(BackVector,Value);
+}
+void ABaseCharacter::MoveRight(const float Value)
+{
+	const FVector RightVector = GetActorRightVector();
+	AddMovementInput(RightVector,Value);
+}
+void ABaseCharacter::MoveLeft(const float Value)
+{
+	const FVector LeftVector = -GetActorRightVector();
+	AddMovementInput(LeftVector,Value);
+}
