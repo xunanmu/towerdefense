@@ -62,8 +62,10 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	InputComponent->BindAxis("MoveBack",this,&ABaseCharacter::MoveBack);
 	InputComponent->BindAxis("MoveRight",this,&ABaseCharacter::MoveRight);
 	InputComponent->BindAxis("MoveLeft",this,&ABaseCharacter::MoveLeft);
-	InputComponent->BindAxis("LookUp",this,&APawn::AddControllerPitchInput);
-	InputComponent->BindAxis("Turn",this,&APawn::AddControllerYawInput);
+	InputComponent->BindAxis("LookUp",this,&ACharacter::AddControllerPitchInput);
+	InputComponent->BindAxis("Turn",this,&ACharacter::AddControllerYawInput);
+	InputComponent->BindAction("Jump",IE_Pressed,this,&ACharacter::Jump);
+	InputComponent->BindAction("Jump",IE_Released,this,&ACharacter::StopJumping);
 
 }
 
