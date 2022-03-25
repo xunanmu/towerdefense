@@ -4,6 +4,7 @@
 #include "Character/ParagonTwinblastCharacter.h"
 
 
+#include "Engine/SkeletalMeshSocket.h"
 #include "Kismet/GameplayStatics.h"
 
 AParagonTwinblastCharacter::AParagonTwinblastCharacter()
@@ -33,4 +34,11 @@ void AParagonTwinblastCharacter::Attack()
 	USoundWave* SoundWave = LoadObject<USoundWave>(nullptr,
 		TEXT("SoundWave'/Game/Resources/Weapons/MilitaryWeapDark/Sound/GrenadeLauncher/Wavs/GrenadeLauncher_Explosion02.GrenadeLauncher_Explosion02'"));
 	UGameplayStatics::PlaySoundAtLocation(this,SoundWave,GetActorLocation());
+}
+
+void AParagonTwinblastCharacter::SwitchCharacters()
+{
+	ParagonTwinblastSkeletalMesh = LoadObject<USkeletalMesh>(nullptr,
+		TEXT("SkeletalMesh'/Game/Resources/Characters/ParagonTwinblast/Characters/Heroes/TwinBlast/Skins/Tier2/ShadowOps/Meshes/TwinBlast_ShadowOps.TwinBlast_ShadowOps'"));
+	GetMesh()->SetSkeletalMesh(ParagonTwinblastSkeletalMesh);
 }

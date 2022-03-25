@@ -36,6 +36,7 @@ private:
 	void MoveRight(float Value);
 	void MoveLeft(float Value);
 public:
-	virtual void Attack();
+	virtual void Attack(){}
+	virtual void SwitchCharacters(){}
 
 };
