@@ -13,5 +13,8 @@ UCLASS()
 class TOWERDEFENSE_API AParagonTwinblastCharacter : public ABaseCharacter
 {
 	GENERATED_BODY()
+
+public:
+	AParagonTwinblastCharacter();
 	
 };
