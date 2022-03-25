@@ -35,5 +35,7 @@ private:
 	void MoveBack(float Value);
 	void MoveRight(float Value);
 	void MoveLeft(float Value);
+public:
+	virtual void Attack();
 
 };

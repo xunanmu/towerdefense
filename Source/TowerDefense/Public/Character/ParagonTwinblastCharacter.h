@@ -16,6 +16,7 @@ class TOWERDEFENSE_API AParagonTwinblastCharacter : public ABaseCharacter
 
 public:
 	AParagonTwinblastCharacter();
+	virtual void Attack() override;
 private:
 	class USkeletalMesh* ParagonTwinblastSkeletalMesh;
 	

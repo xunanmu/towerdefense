@@ -66,6 +66,7 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	InputComponent->BindAxis("Turn",this,&ACharacter::AddControllerYawInput);
 	InputComponent->BindAction("Jump",IE_Pressed,this,&ACharacter::Jump);
 	InputComponent->BindAction("Jump",IE_Released,this,&ACharacter::StopJumping);
+	InputComponent->BindAction("MouseL",IE_Pressed,this,&ABaseCharacter::Attack);
 
 }
 
@@ -89,4 +90,9 @@ void ABaseCharacter::MoveLeft(const float Value)
 {
 	const FVector LeftVector = -GetActorRightVector();
 	AddMovementInput(LeftVector,Value);
+}
+
+void ABaseCharacter::Attack()
+{
+	UE_LOG(LogTemp,Error,TEXT("测试ABaseCharacter"));
 }
