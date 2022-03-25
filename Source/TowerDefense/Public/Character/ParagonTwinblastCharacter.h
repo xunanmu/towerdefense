@@ -16,5 +16,7 @@ class TOWERDEFENSE_API AParagonTwinblastCharacter : public ABaseCharacter
 
 public:
 	AParagonTwinblastCharacter();
+private:
+	class USkeletalMesh* ParagonTwinblastSkeletalMesh;
 	
 };
