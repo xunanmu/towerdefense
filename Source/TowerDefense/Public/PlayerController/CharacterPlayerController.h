@@ -15,4 +15,6 @@ class TOWERDEFENSE_API ACharacterPlayerController : public APlayerController
 	GENERATED_BODY()
 public:
 	ACharacterPlayerController();
+	virtual void SetupInputComponent() override;
+	virtual void BeginPlay() override;
 };
