@@ -6,6 +6,13 @@
 #include "CanvasItem.h"
 #include "Engine/Canvas.h"
 
+ASightHUD::ASightHUD()
+{
+	CrosshairTexture = LoadObject<UTexture2D>(nullptr,
+		TEXT("Texture2D'/Game/Resources/Weapon/FPS_Weapon_Bundle/Weapons/Textures/RDS/T_RDS_01.T_RDS_01'"));
+}
+
+
 void ASightHUD::DrawHUD()
 {
 	Super::DrawHUD();

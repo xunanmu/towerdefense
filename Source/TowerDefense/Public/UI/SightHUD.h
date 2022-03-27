@@ -14,7 +14,7 @@ class TOWERDEFENSE_API ASightHUD : public AHUD
 {
 	GENERATED_BODY()
 public:
-	ASightHUD(){}
+	ASightHUD();
 	UPROPERTY(EditDefaultsOnly)
 	UTexture2D* CrosshairTexture;
 	virtual void DrawHUD() override;
