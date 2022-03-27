@@ -36,7 +36,22 @@ private:
 	void MoveRight(float Value);
 	void MoveLeft(float Value);
 public:
+	
+	/*攻击值*/
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	int AttackValue;
+	/*防御值*/
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	int DefenseValue;
+	/*生命值*/
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	int LifeValue;
+	// /*速度值*/
+	// UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	// int SpeedValue;
+	/*攻击函数*/
 	virtual void Attack(){}
+	/*切换人物*/
 	virtual void SwitchCharacters(){}
 
 };

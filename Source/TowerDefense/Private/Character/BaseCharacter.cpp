@@ -35,9 +35,14 @@ ABaseCharacter::ABaseCharacter()
 	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
 	CapsuleComponent->SetCapsuleSize(34.0f,94.0f);
 	CapsuleComponent->SetupAttachment(RootComponent);
-	//初始速度
+	/*初始速度默认值*/
 	GetCharacterMovement()->MaxWalkSpeed = 700;
-
+	/*初始攻击默认值*/
+	AttackValue = 100;
+	/*初始防御默认值*/
+	DefenseValue = 100;
+	/*初始生命默认值*/
+	LifeValue = AttackValue<<1;
 }
 
 // Called when the game starts or when spawned
