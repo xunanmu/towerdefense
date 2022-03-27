@@ -53,5 +53,5 @@ public:
 	virtual void Attack(){}
 	/*切换人物*/
 	virtual void SwitchCharacters(){}
-
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 };

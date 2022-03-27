@@ -6,6 +6,7 @@
 
 #include "Engine/SkeletalMeshSocket.h"
 #include "Kismet/GameplayStatics.h"
+#include "Weapon/WeaponParticle/Bullet.h"
 
 AParagonTwinblastCharacter::AParagonTwinblastCharacter()
 {
@@ -34,6 +35,8 @@ void AParagonTwinblastCharacter::Attack()
 	USoundWave* SoundWave = LoadObject<USoundWave>(nullptr,
 		TEXT("SoundWave'/Game/Resources/Weapons/MilitaryWeapDark/Sound/GrenadeLauncher/Wavs/GrenadeLauncher_Explosion02.GrenadeLauncher_Explosion02'"));
 	UGameplayStatics::PlaySoundAtLocation(this,SoundWave,GetActorLocation());
+	/*发射子弹*/
+	ABullet* Bullet = GetWorld()->SpawnActor<ABullet>(GetActorLocation(),GetActorRotation());
 }
 
 void AParagonTwinblastCharacter::SwitchCharacters()

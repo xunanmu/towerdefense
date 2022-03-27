@@ -11,15 +11,27 @@ ABullet::ABullet()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(FName("ProjectileMovement"));    //生成组件
-	ProjectileMovementComponent->bAutoActivate = false;        //自动飞行调成false
+	/*设置子弹运动组件*/
+	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));    //生成组件
+	ProjectileMovementComponent->InitialSpeed = 3000.0f;
+	ProjectileMovementComponent->MaxSpeed = 3000.0f;
+	ProjectileMovementComponent->bRotationFollowsVelocity = true;
+	ProjectileMovementComponent->bShouldBounce = true;
+	ProjectileMovementComponent->Bounciness = 0.3f;
 
-	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("ProjectileMesh"));
+	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMesh"));
+	UStaticMesh* StaticMesh  = LoadObject<UStaticMesh>(nullptr,
+		TEXT("StaticMesh'/Game/Resources/Weapon/FPS_Weapon_Bundle/Weapons/Meshes/Ammunition/SM_Shell_762x51.SM_Shell_762x51'"));
+	ProjectileMesh->SetStaticMesh(StaticMesh);
 	RootComponent = ProjectileMesh;
 	ProjectileMesh->SetNotifyRigidBodyCollision(true);
 	ProjectileMesh->SetVisibility(true);
 
+	
 	LaunchParticle = CreateDefaultSubobject<UParticleSystemComponent>(FName("LaunchParticle"));
+	UParticleSystem* ParticleSystem =  LoadObject<UParticleSystem>(nullptr,
+		TEXT("ParticleSystem'/Game/ParagonTwinblast/FX/Particles/Abilities/Dive/FX/P_DiveBooster_Arms.P_DiveBooster_Arms'"));
+	LaunchParticle->SetTemplate(ParticleSystem);
 	LaunchParticle->SetupAttachment(ProjectileMesh);    //将粒子效果绑定在根结点上（即ProjectileMesh）
 	LaunchParticle->SetAutoActivate(true);                //创建好就启动
 

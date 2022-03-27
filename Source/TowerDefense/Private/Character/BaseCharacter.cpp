@@ -96,3 +96,16 @@ void ABaseCharacter::MoveLeft(const float Value)
 	const FVector LeftVector = -GetActorRightVector();
 	AddMovementInput(LeftVector,Value);
 }
+
+float ABaseCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	float actuallyApplied = 0.0f;
+
+	LifeValue -= DamageAmount;
+
+	UE_LOG(LogTemp,Warning,TEXT("ADamagedActor::TakeDamage--MaxHP=%d"),LifeValue);
+
+	actuallyApplied = FMath::Clamp<float>(LifeValue, 0.0f, 100.0f);
+
+	return actuallyApplied;
+}
