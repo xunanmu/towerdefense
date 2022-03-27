@@ -67,12 +67,13 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	InputComponent->BindAxis("MoveBack",this,&ABaseCharacter::MoveBack);
 	InputComponent->BindAxis("MoveRight",this,&ABaseCharacter::MoveRight);
 	InputComponent->BindAxis("MoveLeft",this,&ABaseCharacter::MoveLeft);
-	InputComponent->BindAxis("LookUp",this,&ACharacter::AddControllerPitchInput);
-	InputComponent->BindAxis("Turn",this,&ACharacter::AddControllerYawInput);
-	InputComponent->BindAction("Jump",IE_Pressed,this,&ACharacter::Jump);
-	InputComponent->BindAction("Jump",IE_Released,this,&ACharacter::StopJumping);
+	InputComponent->BindAxis("LookUp",this,&ABaseCharacter::AddControllerPitchInput);
+	InputComponent->BindAxis("Turn",this,&ABaseCharacter::AddControllerYawInput);
+	InputComponent->BindAction("Jump",IE_Pressed,this,&ABaseCharacter::Jump);
+	InputComponent->BindAction("Jump",IE_Released,this,&ABaseCharacter::StopJumping);
 	InputComponent->BindAction("MouseL",IE_Pressed,this,&ABaseCharacter::Attack);
 	InputComponent->BindAction("E",IE_Pressed,this,&ABaseCharacter::SwitchCharacters);
+	InputComponent->BindAction("Q",IE_Pressed,this,&ABaseCharacter::SwitchWeapon);
 }
 
 

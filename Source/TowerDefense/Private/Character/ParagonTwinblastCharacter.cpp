@@ -45,3 +45,8 @@ void AParagonTwinblastCharacter::SwitchCharacters()
 		TEXT("SkeletalMesh'/Game/Resources/Characters/ParagonTwinblast/Characters/Heroes/TwinBlast/Skins/Tier2/ShadowOps/Meshes/TwinBlast_ShadowOps.TwinBlast_ShadowOps'"));
 	GetMesh()->SetSkeletalMesh(ParagonTwinblastSkeletalMesh);
 }
+
+void AParagonTwinblastCharacter::SwitchWeapon()
+{
+	K2_AttachRootComponentToActor(this,FName("weapon_l"));
+}

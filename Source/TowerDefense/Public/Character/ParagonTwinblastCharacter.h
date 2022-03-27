@@ -18,6 +18,7 @@ public:
 	AParagonTwinblastCharacter();
 	virtual void Attack() override;
 	virtual void SwitchCharacters() override;
+	virtual void SwitchWeapon() override;
 private:
 	class USkeletalMesh* ParagonTwinblastSkeletalMesh;
 	
