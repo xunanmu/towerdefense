@@ -9,11 +9,26 @@
 
 ATowerDefenseGameModeBase::ATowerDefenseGameModeBase()
 {
+
+	static ConstructorHelpers::FClassFinder<AParagonTwinblastCharacter> BotPawn(
+		TEXT("Blueprint'/Game/MyParagonTwinblastCharacter.MyParagonTwinblastCharacter_C'"));
+	BotPawnClass = BotPawn.Class;
+	BotPawnClass = AParagonTwinblastCharacter::StaticClass();
 	DefaultPawnClass = AParagonTwinblastCharacter::StaticClass();
 	PlayerControllerClass = ACharacterPlayerController::StaticClass();
 	// HUDClass = ASightHUD::StaticClass();
 	
 }
+
+UClass* ATowerDefenseGameModeBase::GetDefaultPawnClassForController_Implementation(AController* InController)
+{
+	if (InController->IsA<ABaseAIController>())
+	{
+		return BotPawnClass;
+	}
+	return Super::GetDefaultPawnClassForController_Implementation(InController);
+}
+
 
 void ATowerDefenseGameModeBase::BeginPlay()
 {

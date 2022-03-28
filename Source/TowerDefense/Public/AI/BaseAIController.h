@@ -27,8 +27,14 @@ public:
 
 	UFUNCTION(BlueprintCallable,Category="MyAI")
 	void FindEnemy(AParagonTwinblastCharacter* Enemy);
+	UFUNCTION(BlueprintCallable,Category="MyAI")
+	AParagonTwinblastCharacter* GetEnemy();
+	UFUNCTION(BlueprintCallable,Category="MyAI")
+	AParagonTwinblastCharacter* ShootEnemy();
 
 	bool HasEenmy(AActor* Enemty);
 
 	void SetEnemy(APawn* InPawn);
+
+	virtual void Tick(float DeltaSeconds) override;
 };

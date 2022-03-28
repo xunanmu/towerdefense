@@ -10,7 +10,8 @@ public class TowerDefense : ModuleRules
 	
 		PublicDependencyModuleNames.AddRange(new string[]
 		{
-			"Core", "CoreUObject", "Engine", "InputCore","UMG","AIModule","GameplayTasks"
+			"Core", "CoreUObject", "Engine", "InputCore","UMG","AIModule","GameplayTasks",
+			"NavigationSystem"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

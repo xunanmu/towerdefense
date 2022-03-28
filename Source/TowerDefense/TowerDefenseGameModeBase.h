@@ -17,10 +17,15 @@ class TOWERDEFENSE_API ATowerDefenseGameModeBase : public AGameModeBase
 public:
 	ATowerDefenseGameModeBase();
 	virtual void BeginPlay() override;
-	/*自动生成敌方人物*/
-	void AutoCreateEnemy(int n);
-
+	
+	virtual UClass* GetDefaultPawnClassForController_Implementation(AController* InController) override;
+	
 	virtual void StartPlay() override;
+
+	/*自动生成敌方人物*/
+                                      	void AutoCreateEnemy(int n);
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = GameMode)
+	TSubclassOf<APawn> BotPawnClass;
 private:
 	ABaseAIController* CreateAIController();
 	void CreateBot();

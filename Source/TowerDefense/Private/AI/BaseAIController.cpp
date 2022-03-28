@@ -43,8 +43,8 @@ void ABaseAIController::FindEnemy(AParagonTwinblastCharacter* Enemy)
 	AParagonTwinblastCharacter* ParagonTwinblastCharacter = Cast<AParagonTwinblastCharacter>(GetCharacter());
 	if (ParagonTwinblastCharacter )
 	{
-		AParagonTwinblastCharacter* EnemyParagonTwinblastCharacter = Cast<AParagonTwinblastCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(),0));
-		if(EnemyParagonTwinblastCharacter)
+		Enemy = Cast<AParagonTwinblastCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(),0));
+		if(Enemy)
 		{
 			if(Enemy)
 			{
@@ -70,7 +70,7 @@ bool ABaseAIController::HasEenmy(AActor* Enemty)
 	const FVector End = Enemty->GetActorLocation();
 
 	FHitResult OutHit(ForceInit);
-	GetWorld()->LineTraceSingleByChannel(OutHit,Start,End,ECollisionChannel(0),Params);
+	GetWorld()->LineTraceSingleByChannel(OutHit,Start,End,ECollisionChannel(1),Params);
 	if (OutHit.bBlockingHit)
 	{
 		AActor* HitActor = OutHit.GetActor();
@@ -82,6 +82,7 @@ bool ABaseAIController::HasEenmy(AActor* Enemty)
 			}
 		}
 	}
+	return false;
 }
 
 
@@ -94,3 +95,36 @@ void ABaseAIController::SetEnemy(APawn* InPawn)
 	}
 }
 
+void ABaseAIController::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	
+}
+
+AParagonTwinblastCharacter* ABaseAIController::GetEnemy()
+{
+	if (BlackboardComponent)
+	{
+		return Cast<AParagonTwinblastCharacter>(BlackboardComponent->GetValue<UBlackboardKeyType_Object>(EnemyKeyID));
+	}
+	return nullptr;
+}
+
+AParagonTwinblastCharacter* ABaseAIController::ShootEnemy()
+{
+	AParagonTwinblastCharacter* ParagonTwinblastCharacter = Cast<AParagonTwinblastCharacter>(GetPawn());
+	if (ParagonTwinblastCharacter)
+	{
+		AParagonTwinblastCharacter* Enemy =GetEnemy();
+		if(Enemy)
+		{
+			if (LineOfSightTo(Enemy,ParagonTwinblastCharacter->GetActorLocation()))
+			{
+				UE_LOG(LogTemp,Error,TEXT("测试ShootEnemy"));
+			}
+		}
+	}
+	ParagonTwinblastCharacter->Attack();
+	UE_LOG(LogTemp,Error,TEXT("测试射击"));
+	return ParagonTwinblastCharacter;
+}
