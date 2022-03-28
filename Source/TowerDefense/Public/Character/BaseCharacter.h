@@ -49,6 +49,9 @@ public:
 	// /*速度值*/
 	// UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	// int SpeedValue;
+	/**/
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	class UBehaviorTree *BehaviorTree;
 	/*攻击函数*/
 	virtual void Attack(){}
 	/*切换人物*/

@@ -6,6 +6,7 @@
 
 #include "Engine/SkeletalMeshSocket.h"
 #include "Kismet/GameplayStatics.h"
+#include "TowerDefense/TowerDefenseGameModeBase.h"
 #include "Weapon/WeaponParticle/Bullet.h"
 
 AParagonTwinblastCharacter::AParagonTwinblastCharacter()
@@ -27,7 +28,8 @@ AParagonTwinblastCharacter::AParagonTwinblastCharacter()
 void AParagonTwinblastCharacter::Attack()
 {
 	UE_LOG(LogTemp,Error,TEXT("测试AParagonTwinblastCharacter"));
-	/*攻击蒙太奇动画*/
+	// AIControllerClass = 
+	/*攻击蒙太奇动画*/ 
 	UAnimMontage* AnimMontage = LoadObject<UAnimMontage>(nullptr,
 		TEXT("AnimMontage'/Game/Resources/Characters/ParagonTwinblast/Characters/Heroes/TwinBlast/Animations/DoubleShot_Fire_Lft_Montage.DoubleShot_Fire_Lft_Montage'"));
 	PlayAnimMontage(AnimMontage);
@@ -37,6 +39,8 @@ void AParagonTwinblastCharacter::Attack()
 	UGameplayStatics::PlaySoundAtLocation(this,SoundWave,GetActorLocation());
 	/*发射子弹*/
 	ABullet* Bullet = GetWorld()->SpawnActor<ABullet>(GetActorLocation(),GetActorRotation());
+	// GetWorld()->SpawnActor<AParagonTwinblastCharacter>( FVector(400.f,47767.6875f,24717.435547f),FRotator(0.0f,0.f,0.f));
+	UE_LOG(LogTemp,Error,TEXT("测试生成AParagonTwinblastCharacter"));
 }
 
 void AParagonTwinblastCharacter::SwitchCharacters()
