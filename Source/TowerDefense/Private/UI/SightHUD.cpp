@@ -9,7 +9,7 @@
 ASightHUD::ASightHUD()
 {
 	CrosshairTexture = LoadObject<UTexture2D>(nullptr,
-		TEXT("Texture2D'/Game/Resources/Weapon/FPS_Weapon_Bundle/Weapons/Textures/RDS/T_RDS_01.T_RDS_01'"));
+		TEXT("Texture2D'/Game/TowerDefense/UI/resources/mz1.mz1'"));
 }
 
 

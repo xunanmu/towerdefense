@@ -4,6 +4,7 @@
 #include "Character/ParagonTwinblastCharacter.h"
 
 
+#include "Blueprint/UserWidget.h"
 #include "Engine/SkeletalMeshSocket.h"
 #include "Kismet/GameplayStatics.h"
 #include "TowerDefense/TowerDefenseGameModeBase.h"
@@ -22,13 +23,24 @@ AParagonTwinblastCharacter::AParagonTwinblastCharacter()
 	{
 		GetMesh()->SetAnimInstanceClass(ParagonTwinblastAnimInstance.Class);
 	}
+
+
+	// if (StartingWidgetClass != nullptr) 
+	// {
+	// 	CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), StartingWidgetClass);
+	// 	if (CurrentWidget != nullptr)
+	// 	{
+	// 		CurrentWidget->AddToViewport();
+	// 	}
+	// }
 }
 
 
 void AParagonTwinblastCharacter::Attack()
 {
 	UE_LOG(LogTemp,Error,TEXT("测试AParagonTwinblastCharacter"));
-	// AIControllerClass = 
+	// AIControllerClass =
+	// GetController()->SetControlRotation(GetActorRotation());
 	/*攻击蒙太奇动画*/ 
 	UAnimMontage* AnimMontage = LoadObject<UAnimMontage>(nullptr,
 		TEXT("AnimMontage'/Game/Resources/Characters/ParagonTwinblast/Characters/Heroes/TwinBlast/Animations/DoubleShot_Fire_Lft_Montage.DoubleShot_Fire_Lft_Montage'"));
@@ -45,9 +57,15 @@ void AParagonTwinblastCharacter::Attack()
 
 void AParagonTwinblastCharacter::SwitchCharacters()
 {
+	
 	ParagonTwinblastSkeletalMesh = LoadObject<USkeletalMesh>(nullptr,
 		TEXT("SkeletalMesh'/Game/Resources/Characters/ParagonTwinblast/Characters/Heroes/TwinBlast/Skins/Tier2/ShadowOps/Meshes/TwinBlast_ShadowOps.TwinBlast_ShadowOps'"));
 	GetMesh()->SetSkeletalMesh(ParagonTwinblastSkeletalMesh);
+	Super::BeginPlay();
+	Aimat = CreateWidget(GetWorld(),LoadClass<UUserWidget>(nullptr,
+TEXT("WidgetBlueprint'/Game/AimatWidgetBlueprint.AimatWidgetBlueprint_C'")));
+	Aimat->AddToViewport();
+	UE_LOG(LogTemp,Error,TEXT("测试瞄准%p"),Aimat);
 }
 
 void AParagonTwinblastCharacter::SwitchWeapon()

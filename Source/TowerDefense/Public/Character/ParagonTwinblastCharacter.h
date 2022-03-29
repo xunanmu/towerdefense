@@ -21,5 +21,5 @@ public:
 	virtual void SwitchWeapon() override;
 private:
 	class USkeletalMesh* ParagonTwinblastSkeletalMesh;
-	
+	UUserWidget* Aimat ;
 };

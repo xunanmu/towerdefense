@@ -17,5 +17,6 @@ public:
 	ACharacterPlayerController();
 	virtual void SetupInputComponent() override;
 	virtual void BeginPlay() override;
+	UUserWidget* Aimat;
 	// virtual void Tick(float DeltaSeconds) override;
 };
