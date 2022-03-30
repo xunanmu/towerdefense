@@ -10,7 +10,6 @@
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Object.h"
 #include "Character/ParagonTwinblastCharacter.h"
 #include "Kismet/GameplayStatics.h"
-#include "WebBrowser/Private/CEF/CEFWebBrowserDialog.h"
 
 //准备开始时候的初始化数据
 ABaseAIController::ABaseAIController(const FObjectInitializer& ObjectInitializer):Super(ObjectInitializer)
@@ -71,7 +70,7 @@ bool ABaseAIController::HasEenmy(AActor* Enemty)
 	const FVector End = Enemty->GetActorLocation();
 
 	FHitResult OutHit(ForceInit);
-	GetWorld()->LineTraceSingleByChannel(OutHit,Start,End,ECC_Pawn,Params);
+	GetWorld()->LineTraceSingleByChannel(OutHit,Start,End,ECC_GameTraceChannel4,Params);
 	if (OutHit.bBlockingHit)
 	{
 		AActor* HitActor = OutHit.GetActor();

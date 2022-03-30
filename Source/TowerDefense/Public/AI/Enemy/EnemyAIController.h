@@ -16,14 +16,20 @@ class TOWERDEFENSE_API AEnemyAIController : public ABaseAIController
 {
 	GENERATED_BODY()
 public:
-	AEnemyAIController();
+	AEnemyAIController(const FObjectInitializer& ObjectInitializer);
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void OnUnPossess() override;
 
-	/*寻找玩家，用与*/
-	void FindPlayer();
-	/*攻击玩家*/
-	void AttactPlayer();
+	/*寻找玩家Pawn，用与*/
+	void FindPlayerPawn();
+	/*攻击玩家Pawn*/
+	void AttackPlayerPawn();
+	/*判断是否有玩家Pawn*/
+	bool HasPlayerPawn(ABaseCharacter* PlayerPawn);
+	/*设置PlayerPawn绑定在黑板键上*/
+	void SetPlayerPawn(ABaseCharacter* PlayerPawn);
+	/*获取黑板键绑定的玩家pawn*/
+	ABaseCharacter* GetPlayerPawn();
 	
 private:
 	FBlackboard::FKey PlayerPawnKey = 0;
