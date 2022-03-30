@@ -71,7 +71,7 @@ bool ABaseAIController::HasEenmy(AActor* Enemty)
 	const FVector End = Enemty->GetActorLocation();
 
 	FHitResult OutHit(ForceInit);
-	GetWorld()->LineTraceSingleByChannel(OutHit,Start,End,ECollisionChannel(1),Params);
+	GetWorld()->LineTraceSingleByChannel(OutHit,Start,End,ECC_Pawn,Params);
 	if (OutHit.bBlockingHit)
 	{
 		AActor* HitActor = OutHit.GetActor();
