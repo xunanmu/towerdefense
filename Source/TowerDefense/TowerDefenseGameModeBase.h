@@ -23,7 +23,7 @@ public:
 	virtual void StartPlay() override;
 
 	/*自动生成敌方人物*/
-                                      	void AutoCreateEnemy(int n);
+    void AutoCreateEnemy(int n);
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = GameMode)
 	TSubclassOf<APawn> BotPawnClass;
 private:

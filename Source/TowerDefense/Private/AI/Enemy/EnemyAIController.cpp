@@ -72,11 +72,11 @@ bool AEnemyAIController::HasPlayerPawn(ABaseCharacter* PlayerPawn)
 	APawn* AIPawn = GetPawn();
 	FVector Start = AIPawn->GetActorLocation();
 	Start.Z += AIPawn->BaseEyeHeight;
-	const FVector End = AIPawn->GetActorLocation();
+	const FVector End = PlayerPawn->GetActorLocation();
 
 	/*检查是否看见玩家*/
 	FHitResult OutHit(ForceInit);
-	GetWorld()->LineTraceSingleByChannel(OutHit,Start,End,ECC_GameTraceChannel4,Params);
+	GetWorld()->LineTraceSingleByChannel(OutHit,Start,End,ECC_Pawn,Params);
 	if (OutHit.bBlockingHit)
 	{
 		AActor* HitActor = OutHit.GetActor();

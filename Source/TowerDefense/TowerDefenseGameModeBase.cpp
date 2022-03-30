@@ -9,10 +9,7 @@
 
 ATowerDefenseGameModeBase::ATowerDefenseGameModeBase()
 {
-
-	static ConstructorHelpers::FClassFinder<AParagonTwinblastCharacter> BotPawn(
-		TEXT("Blueprint'/Game/MyParagonTwinblastCharacter.MyParagonTwinblastCharacter_C'"));
-	BotPawnClass = BotPawn.Class;
+	
 	BotPawnClass = AParagonTwinblastCharacter::StaticClass();
 	DefaultPawnClass = AParagonTwinblastCharacter::StaticClass();
 	PlayerControllerClass = ACharacterPlayerController::StaticClass();
@@ -33,13 +30,13 @@ UClass* ATowerDefenseGameModeBase::GetDefaultPawnClassForController_Implementati
 void ATowerDefenseGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
-	AutoCreateEnemy(5);
+	// AutoCreateEnemy(5);
 }
 void ATowerDefenseGameModeBase::StartPlay()
 {
 	Super::StartPlay();
-	CreateAIController();
-	CreateBot();
+	// CreateAIController();
+	// CreateBot();
 }
 
 void ATowerDefenseGameModeBase::AutoCreateEnemy(int n)
