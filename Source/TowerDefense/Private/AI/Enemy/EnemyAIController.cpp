@@ -102,7 +102,7 @@ ABaseCharacter* AEnemyAIController::GetPlayerPawn()
 {
 	if (BlackboardComponent)
 	{
-		return Cast<ABaseCharacter>(BlackboardComponent->GetValue<UBlackboardKeyType_Object>(EnemyKeyID));
+		return Cast<ABaseCharacter>(BlackboardComponent->GetValue<UBlackboardKeyType_Object>(PlayerPawnKey));
 	}
 	return nullptr;
 }
