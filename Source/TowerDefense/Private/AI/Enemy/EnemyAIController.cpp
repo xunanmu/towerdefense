@@ -76,7 +76,7 @@ bool AEnemyAIController::HasPlayerPawn(ABaseCharacter* PlayerPawn)
 
 	/*检查是否看见玩家*/
 	FHitResult OutHit(ForceInit);
-	GetWorld()->LineTraceSingleByChannel(OutHit,Start,End,ECC_Pawn,Params);
+	GetWorld()->LineTraceSingleByChannel(OutHit,Start,End,ECC_GameTraceChannel14,Params);
 	if (OutHit.bBlockingHit)
 	{
 		AActor* HitActor = OutHit.GetActor();
