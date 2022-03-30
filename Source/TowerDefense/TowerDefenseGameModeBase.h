@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AI/BaseAIController.h"
+#include "AI/Enemy/EnemyAIController.h"
 #include "GameFramework/GameModeBase.h"
 #include "TowerDefenseGameModeBase.generated.h"
 
@@ -18,15 +19,8 @@ public:
 	ATowerDefenseGameModeBase();
 	virtual void BeginPlay() override;
 	
-	virtual UClass* GetDefaultPawnClassForController_Implementation(AController* InController) override;
-	
 	virtual void StartPlay() override;
 
-	/*自动生成敌方人物*/
-    void AutoCreateEnemy(int n);
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = GameMode)
-	TSubclassOf<APawn> BotPawnClass;
+	
 private:
-	ABaseAIController* CreateAIController();
-	void CreateBot();
 };
