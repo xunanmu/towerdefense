@@ -21,13 +21,15 @@ public:
 	virtual void OnUnPossess() override;
 
 	/*寻找玩家Pawn，用与*/
+	UFUNCTION(BlueprintCallable,Category="MyAI")
 	void FindPlayerPawn();
 	/*攻击玩家Pawn*/
+	UFUNCTION(BlueprintCallable,Category="MyAI")
 	void AttackPlayerPawn();
 	/*判断是否有玩家Pawn*/
-	bool HasPlayerPawn(ABaseCharacter* PlayerPawn);
+	bool HasPlayerPawn(class ABaseCharacter* PlayerPawn);
 	/*设置PlayerPawn绑定在黑板键上*/
-	void SetPlayerPawn(ABaseCharacter* PlayerPawn);
+	void SetPlayerPawn(class ABaseCharacter* PlayerPawn);
 	/*获取黑板键绑定的玩家pawn*/
 	ABaseCharacter* GetPlayerPawn();
 	

@@ -7,6 +7,7 @@
 #include "AI/Enemy/EnemyAIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Vector.h"
+#include "Character/BaseCharacter.h"
 
 EBTNodeResult::Type UGetPlayerPositionBTTask::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {

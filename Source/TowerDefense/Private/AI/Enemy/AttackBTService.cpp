@@ -7,11 +7,25 @@
 
 UAttackBTService::UAttackBTService(const FObjectInitializer& ObjectInitializer):Super(ObjectInitializer)
 {
-	bNotifyBecomeRelevant  = true;
+	bNotifyBecomeRelevant = false;
+
+	bNotifyTick = true;
+	bTickIntervals = true;
 }
 
 void UAttackBTService::OnBecomeRelevant(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
+	AEnemyAIController* AIController = Cast<AEnemyAIController>(OwnerComp.GetAIOwner());
+
+	if (AIController)
+	{
+		AIController->AttackPlayerPawn();
+	}
+}
+
+void UAttackBTService::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
+{
+	Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
 	AEnemyAIController* AIController = Cast<AEnemyAIController>(OwnerComp.GetAIOwner());
 
 	if (AIController)

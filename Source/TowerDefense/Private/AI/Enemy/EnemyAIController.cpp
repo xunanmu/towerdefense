@@ -6,23 +6,25 @@
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyType_Object.h"
+#include "Character/BaseCharacter.h"
+#include "Kismet/GameplayStatics.h"
 
 AEnemyAIController::AEnemyAIController(const FObjectInitializer& ObjectInitializer):Super(ObjectInitializer)
 {
-	// BehaviorTreeComponent = CreateDefaultSubobject<UBehaviorTreeComponent>(TEXT("BehaviorTreeComponent"));
-	// BlackboardComponent = CreateDefaultSubobject<UBlackboardComponent>(TEXT("BlackboardComponent"));
+	BehaviorTreeComponent = CreateDefaultSubobject<UBehaviorTreeComponent>(TEXT("BehaviorTreeComponent"));
+	BlackboardComponent = CreateDefaultSubobject<UBlackboardComponent>(TEXT("BlackboardComponent"));
 	
 }
 
 void AEnemyAIController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
-	AParagonTwinblastCharacter* ParagonTwinblast = Cast<AParagonTwinblastCharacter>(InPawn);
-	if(ParagonTwinblast && ParagonTwinblast->BehaviorTree && ParagonTwinblast->BehaviorTree->BlackboardAsset)
+	const ABaseCharacter* AIPawn = Cast<ABaseCharacter>(InPawn);
+	if(AIPawn && AIPawn->BehaviorTree && AIPawn->BehaviorTree->BlackboardAsset)
 	{
-		BlackboardComponent->InitializeBlackboard(*ParagonTwinblast->BehaviorTree->BlackboardAsset);
+		BlackboardComponent->InitializeBlackboard(*AIPawn->BehaviorTree->BlackboardAsset);
 		PlayerPawnKey = BlackboardComponent->GetKeyID("PlayerPawn");
-		BehaviorTreeComponent->StartTree(*ParagonTwinblast->BehaviorTree);
+		BehaviorTreeComponent->StartTree(*AIPawn->BehaviorTree);
 	}
 }
 
@@ -39,10 +41,10 @@ void AEnemyAIController::FindPlayerPawn()
 	if (AIPawn)
 	{
 		/*后期多人玩家可以在改进一下算法*/
-		ABaseCharacter* PlayerPawn = Cast<ABaseCharacter>(*(GetWorld()->GetPlayerControllerIterator()));
+		ABaseCharacter* PlayerPawn = Cast<ABaseCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(),0));
 		if (PlayerPawn && HasPlayerPawn(PlayerPawn))
 		{
-				SetPlayerPawn(PlayerPawn);
+			SetPlayerPawn(PlayerPawn);
 		}
 	}
 }
