@@ -20,9 +20,7 @@ bool UStartUserWidget::Initialize()
 			/*设置悬浮时，按钮外观颜色(淡黄)*/
 			StartGameButton->WidgetStyle.Hovered.TintColor = FSlateColor(FLinearColor(0.995811,1.f,0.304887));
 			/*设置按钮点击事件*/
-			FScriptDelegate ScriptDelegate;
-			ScriptDelegate.BindUFunction(this,"StartGame");
-			StartGameButton->OnReleased.Add(ScriptDelegate);
+			// StartGameButton->OnReleased.Add(ScriptDelegate);
 		}
 		HelpButton = Cast<UButton>(GetWidgetFromName("HelpButton"));
 		if (HelpButton)
@@ -30,9 +28,7 @@ bool UStartUserWidget::Initialize()
 			/*设置悬浮时，按钮外观颜色(淡黄)*/
 			HelpButton->WidgetStyle.Hovered.TintColor = FSlateColor(FLinearColor(0.995811,1.f,0.304887));
 			/*设置按钮点击事件*/
-			FScriptDelegate ScriptDelegate;
-			ScriptDelegate.BindUFunction(this,"Help");
-			HelpButton->OnReleased.Add(ScriptDelegate);
+			// HelpButton->OnReleased.Add(ScriptDelegate);
 		}
 		SetButton = Cast<UButton>(GetWidgetFromName("SetButton"));
 		if (SetButton)
@@ -40,9 +36,7 @@ bool UStartUserWidget::Initialize()
 			/*设置悬浮时，按钮外观颜色(淡黄)*/
 			SetButton->WidgetStyle.Hovered.TintColor = FSlateColor(FLinearColor(0.995811,1.f,0.304887));
 			/*设置按钮点击事件*/
-			FScriptDelegate ScriptDelegate;
-			ScriptDelegate.BindUFunction(this,"Set");
-			SetButton->OnReleased.Add(ScriptDelegate);
+			// SetButton->OnReleased.Add(ScriptDelegate);
 		}
 		ExitGameButton = Cast<UButton>(GetWidgetFromName("ExitGameButton"));
 		if (ExitGameButton)
@@ -50,9 +44,7 @@ bool UStartUserWidget::Initialize()
 			/*设置悬浮时，按钮外观颜色(淡黄)*/
 			ExitGameButton->WidgetStyle.Hovered.TintColor = FSlateColor(FLinearColor(0.995811,1.f,0.304887));
 			/*设置按钮点击事件*/
-			FScriptDelegate ScriptDelegate;
-			ScriptDelegate.BindUFunction(this,"ExitGame");
-			ExitGameButton->OnReleased.Add(ScriptDelegate);
+			// ExitGameButton->OnReleased.AddDynamic();
 		}
 		return true;
 	}

@@ -37,10 +37,12 @@ ABaseCharacter* AEnemyFactory::RandomCreatePawn()
 	const int RandomNumber = rand() % 1;
 	const FRotator ActorRotation(0.0f, -90.0f, 0.f);
 	const FVector ActorLocation(968.514099, 37239.257812f, 24585.097656f);
+	FActorSpawnParameters SpawnParameters = FActorSpawnParameters();
+	SpawnParameters.bNoFail = true;
 	/*以后维护switch就好了*/
 	switch (RandomNumber)
 	{
-	case 0: return GetWorld()->SpawnActor<AParagonTwinblastCharacter>(ActorLocation,ActorRotation);
+	case 0: return GetWorld()->SpawnActor<AParagonTwinblastCharacter>(ActorLocation,ActorRotation,SpawnParameters);
 	default: ;
 	}
 	return nullptr;
