@@ -23,7 +23,7 @@ ATowerDefenseGameModeBase::ATowerDefenseGameModeBase()
 void ATowerDefenseGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
-	UEnemyFactory::CreateEnemy(GetWorld(),5);
+	GetWorld()->SpawnActor<AEnemyFactory>();
 }
 
 

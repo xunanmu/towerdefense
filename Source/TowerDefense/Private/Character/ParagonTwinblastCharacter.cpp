@@ -38,8 +38,7 @@ AParagonTwinblastCharacter::AParagonTwinblastCharacter()
 
 void AParagonTwinblastCharacter::Attack()
 {
-	UE_LOG(LogTemp,Error,TEXT("测试AParagonTwinblastCharacter"));
-	// AIControllerClass =
+	// UE_LOG(LogTemp,Error,TEXT("测试AParagonTwinblastCharacter"));
 	// GetController()->SetControlRotation(GetActorRotation());
 	/*攻击蒙太奇动画*/ 
 	UAnimMontage* AnimMontage = LoadObject<UAnimMontage>(nullptr,
@@ -52,7 +51,7 @@ void AParagonTwinblastCharacter::Attack()
 	/*发射子弹*/
 	ABullet* Bullet = GetWorld()->SpawnActor<ABullet>(GetActorLocation(),GetActorRotation());
 	// GetWorld()->SpawnActor<AParagonTwinblastCharacter>( FVector(400.f,47767.6875f,24717.435547f),FRotator(0.0f,0.f,0.f));
-	UE_LOG(LogTemp,Error,TEXT("测试生成AParagonTwinblastCharacter"));
+	// UE_LOG(LogTemp,Error,TEXT("测试生成AParagonTwinblastCharacter"));
 }
 
 void AParagonTwinblastCharacter::SwitchCharacters()
