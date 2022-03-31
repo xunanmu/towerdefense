@@ -13,5 +13,13 @@ UCLASS()
 class TOWERDEFENSE_API UStartUserWidget : public UUserWidget
 {
 	GENERATED_BODY()
-	
+public:
+	UStartUserWidget(const FObjectInitializer& ObjectInitializer);
+
+	virtual bool Initialize() override;
+private:
+	class UButton* StartGameButton;
+	class UButton* HelpButton;
+	class UButton* SetButton;
+	class UButton* ExitGameButton;
 };
