@@ -23,16 +23,8 @@ ATowerDefenseGameModeBase::ATowerDefenseGameModeBase()
 void ATowerDefenseGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
-	UEnemyFactory(GetWorld()).CreateEnemy();
+	UEnemyFactory::CreateEnemy(GetWorld(),5);
 }
-void ATowerDefenseGameModeBase::StartPlay()
-{
-	Super::StartPlay();
-}
-
-
-
-
 
 
 

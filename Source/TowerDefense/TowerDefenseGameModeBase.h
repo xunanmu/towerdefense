@@ -18,9 +18,4 @@ class TOWERDEFENSE_API ATowerDefenseGameModeBase : public AGameModeBase
 public:
 	ATowerDefenseGameModeBase();
 	virtual void BeginPlay() override;
-	
-	virtual void StartPlay() override;
-
-	
-private:
 };

@@ -3,29 +3,21 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "UObject/Object.h"
 #include "EnemyFactory.generated.h"
 
+/**
+ * 
+ */
 UCLASS()
-class TOWERDEFENSE_API AEnemyFactory : public AActor
+class TOWERDEFENSE_API UEnemyFactory : public UObject
 {
 	GENERATED_BODY()
-
 public:
-	// Sets default values for this actor's properties
-	AEnemyFactory();
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 	/*可以设置设计时间*/
-	void CreateEnemy(int InitNumber = 1,int Seconds = 1);
+	static void CreateEnemy(UWorld* World = GEngine->GetWorld(),int InitNumber = 1,int Seconds = 1);
 	/*随机生成Pawn的种类*/
-	class APawn* RandomCreatePawn();
+	static class ABaseCharacter* RandomCreatePawn(UWorld* World = GEngine->GetWorld());
 	/*创建AI控制器*/
-	class AAIController* CreateEnemyAIController();
+	static class AAIController* CreateEnemyAIController(UWorld* World = GEngine->GetWorld());
 };

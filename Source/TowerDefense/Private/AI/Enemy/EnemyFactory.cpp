@@ -3,42 +3,27 @@
 
 #include "AI/Enemy/EnemyFactory.h"
 
+#include "AI/Enemy/EnemyAIController.h"
+#include "Character/ParagonTwinblastCharacter.h"
+#include "BehaviorTree/BehaviorTree.h"
 
-// Sets default values
-AEnemyFactory::AEnemyFactory()
+void UEnemyFactory::CreateEnemy(UWorld* World, int InitNumber, int Seconds)
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-}
-
-// Called when the game starts or when spawned
-void AEnemyFactory::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
-// Called every frame
-void AEnemyFactory::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-
-
-void UEnemyFactory::CreateEnemy(int InitNumber, int Seconds)
-{
-	const auto BehaviorTree = LoadObject<UBehaviorTree>(nullptr,
-		TEXT("BehaviorTree'/Game/TowerDefense/AI/Enemy/EnemyBehaviorTree.EnemyBehaviorTree'"));
+	/*如果敌人个体有单独变量，行为树需要独立绑定*/
+	UBehaviorTree* BehaviorTree = LoadObject<UBehaviorTree>(nullptr,
+	TEXT("BehaviorTree'/Game/TowerDefense/AI/Enemy/EnemyBehaviorTree.EnemyBehaviorTree'"));
 	for (int i = 0; i < InitNumber; ++i)
 	{
-		ABaseCharacter* EnemyPawn = Cast<ABaseCharacter>(RandomCreatePawn());
-		AAIController* AIController = CreateEnemyAIController();
-		AIController->Possess(EnemyPawn);
+		ABaseCharacter* EnemyPawn = RandomCreatePawn(World);
+		AAIController* AIController = CreateEnemyAIController(World);
+		/*玄学 行为树绑定必须在控制器绑定之前*/
 		EnemyPawn->BehaviorTree = BehaviorTree;
+		AIController->Possess(EnemyPawn);
+		
 	}
 }
 
-APawn* UEnemyFactory::RandomCreatePawn()
+ABaseCharacter* UEnemyFactory::RandomCreatePawn(UWorld* World)
 {
 	const int RandomNumber = rand() % 1;
 	const FRotator ActorRotation(0.0f, -90.0f, 0.f);
@@ -51,9 +36,9 @@ APawn* UEnemyFactory::RandomCreatePawn()
 	return nullptr;
 }
 
-AAIController* UEnemyFactory::CreateEnemyAIController()
+AAIController* UEnemyFactory::CreateEnemyAIController(UWorld* World)
 {
-	const FActorSpawnParameters SpawnParameters;
+	FActorSpawnParameters SpawnParameters;
+	SpawnParameters.Instigator = nullptr;
 	return World->SpawnActor<AEnemyAIController>(SpawnParameters);
 }
-
