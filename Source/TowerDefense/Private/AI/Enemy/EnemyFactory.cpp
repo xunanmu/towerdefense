@@ -36,7 +36,7 @@ ABaseCharacter* AEnemyFactory::RandomCreatePawn()
 {
 	const int RandomNumber = rand() % 1;
 	const FRotator ActorRotation(0.0f, -90.0f, 0.f);
-	const FVector ActorLocation(968.514099, 37239.257812f, 24555.097656f);
+	const FVector ActorLocation(968.514099, 37239.257812f, 24585.097656f);
 	/*以后维护switch就好了*/
 	switch (RandomNumber)
 	{
@@ -56,7 +56,6 @@ AAIController* AEnemyFactory::CreateEnemyAIController()
 void AEnemyFactory::spawnEnemiesEvery5Minutes()
 {
 	// GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
-	Number <<= 1;
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle,this,&AEnemyFactory::SpawnEnemiesEvery5Minutes_1,300,true,0);
 }
 
@@ -68,6 +67,7 @@ void AEnemyFactory::BeginPlay()
 
 void AEnemyFactory::SpawnEnemiesEvery5Minutes_1()
 {
+	Number <<= 1;
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle2,this,&AEnemyFactory::SpawnEnemiesEvery5Minutes_2,1,true,0);
 }
 
