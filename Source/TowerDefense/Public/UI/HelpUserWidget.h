@@ -13,5 +13,12 @@ UCLASS()
 class TOWERDEFENSE_API UHelpUserWidget : public UUserWidget
 {
 	GENERATED_BODY()
+public:
+	UHelpUserWidget(const FObjectInitializer& ObjectInitializer):Super(ObjectInitializer){}
 	
+	virtual bool Initialize() override;
+
+	UFUNCTION() void Close();
+private:
+	class UButton* CloseButton;
 };

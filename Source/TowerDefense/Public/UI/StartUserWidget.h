@@ -17,6 +17,11 @@ public:
 	UStartUserWidget(const FObjectInitializer& ObjectInitializer);
 
 	virtual bool Initialize() override;
+	
+	UFUNCTION() void StartGame();
+	UFUNCTION() void ExitGame();
+	UFUNCTION() void Help();
+	UFUNCTION() void Set();
 private:
 	class UButton* StartGameButton;
 	class UButton* HelpButton;

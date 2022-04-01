@@ -13,5 +13,13 @@ UCLASS()
 class TOWERDEFENSE_API UEndUserWidget : public UUserWidget
 {
 	GENERATED_BODY()
+public:
+	UEndUserWidget(const FObjectInitializer& ObjectInitializer):Super(ObjectInitializer){}
 	
+	virtual auto Initialize() -> bool override;
+
+	
+	UFUNCTION() void ExitGame();
+private:
+	class UButton* ExitGameButton;
 };
