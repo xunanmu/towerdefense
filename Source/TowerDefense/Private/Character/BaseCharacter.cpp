@@ -7,13 +7,14 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-
+	
 	/*初始化人物的位置和朝向*/
 	GetMesh()->SetRelativeLocation(FVector(0,0,-90));
 	GetMesh()->SetRelativeRotation(FRotator(0,-90,0));
@@ -42,7 +43,8 @@ ABaseCharacter::ABaseCharacter()
 	/*初始防御默认值*/
 	DefenseValue = 100;
 	/*初始生命默认值*/
-	LifeValue = AttackValue<<1;
+	MaxHealth = 100;
+	CurrentHealth = MaxHealth;
 }
 
 // Called when the game starts or when spawned
@@ -76,6 +78,14 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	InputComponent->BindAction("Q",IE_Pressed,this,&ABaseCharacter::SwitchWeapon);
 }
 
+void ABaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps/*参数名不能乱用*/) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	/*复制当前生命属性*/
+	DOREPLIFETIME(ABaseCharacter,CurrentHealth);
+}
+
 
 void ABaseCharacter::MoveForWard(const float Value)
 {
@@ -98,15 +108,51 @@ void ABaseCharacter::MoveLeft(const float Value)
 	AddMovementInput(LeftVector,Value);
 }
 
+void ABaseCharacter::OnRep_CurrentHealth()
+{
+	OnHealthUpdate();
+}
+
+void ABaseCharacter::OnHealthUpdate()
+{
+	/*客户端*/
+	if (IsLocallyControlled())
+	{
+		FString HealthMessage = FString::Printf(TEXT("你现在的生命值:%d."),CurrentHealth);
+		GEngine->AddOnScreenDebugMessage(-1,5.f,FColor::Blue,HealthMessage);
+		if (CurrentHealth <= 0)
+		{
+			FString DeathMessage = FString::Printf(TEXT("你已死亡"));
+			GEngine->AddOnScreenDebugMessage(-1,5.f,FColor::Red,DeathMessage);
+		}
+	}
+
+	/*服务端*/
+	if(GetLocalRole() == ROLE_Authority)
+	{
+		FString HealthMessage = FString::Printf(TEXT("%s 当前的生命值%d."),*GetName(),CurrentHealth);
+		GEngine->AddOnScreenDebugMessage(-1,5.f,FColor::Blue,HealthMessage);
+	}
+
+	/*所有端*/
+	/*  
+	   因任何因伤害或死亡而产生的特殊功能都应放在这里。 
+   */
+}
+
+void ABaseCharacter::SetCurrentHealth(int healthValue)
+{
+	/*服务端*/
+	if (GetLocalRole() == ROLE_Authority)
+	{
+		CurrentHealth = FMath::Clamp(healthValue,0,MaxHealth);
+		OnHealthUpdate();
+	}
+}
+
 float ABaseCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
-	float actuallyApplied = 0.0f;
-
-	LifeValue -= DamageAmount;
-
-	UE_LOG(LogTemp,Warning,TEXT("ADamagedActor::TakeDamage--MaxHP=%d"),LifeValue);
-
-	actuallyApplied = FMath::Clamp<float>(LifeValue, 0.0f, 100.0f);
-
-	return actuallyApplied;
+	float damageApplied = CurrentHealth - DamageAmount;
+	SetCurrentHealth(damageApplied);
+	return damageApplied;
 }

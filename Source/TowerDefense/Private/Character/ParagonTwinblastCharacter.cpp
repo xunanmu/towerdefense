@@ -12,6 +12,12 @@
 
 AParagonTwinblastCharacter::AParagonTwinblastCharacter()
 {
+	//初始化投射物类
+	ProjectileClass = ABullet::StaticClass();
+	//初始化射速
+	FireRate = 0.25f;
+	bIsFiringWeapon = false;
+	
 	//加载骨骼网格体
 	ParagonTwinblastSkeletalMesh = LoadObject<USkeletalMesh>(nullptr,
 		TEXT("SkeletalMesh'/Game/Resources/Characters/ParagonTwinblast/Characters/Heroes/TwinBlast/Meshes/TwinBlast.TwinBlast'"));
@@ -38,20 +44,10 @@ AParagonTwinblastCharacter::AParagonTwinblastCharacter()
 
 void AParagonTwinblastCharacter::Attack()
 {
-	// UE_LOG(LogTemp,Error,TEXT("测试AParagonTwinblastCharacter"));
-	// GetController()->SetControlRotation(GetActorRotation());
-	/*攻击蒙太奇动画*/ 
-	UAnimMontage* AnimMontage = LoadObject<UAnimMontage>(nullptr,
-		TEXT("AnimMontage'/Game/Resources/Characters/ParagonTwinblast/Characters/Heroes/TwinBlast/Animations/DoubleShot_Fire_Lft_Montage.DoubleShot_Fire_Lft_Montage'"));
-	PlayAnimMontage(AnimMontage);
-	/*攻击声音*/
-	USoundWave* SoundWave = LoadObject<USoundWave>(nullptr,
-		TEXT("SoundWave'/Game/Resources/Weapons/MilitaryWeapDark/Sound/GrenadeLauncher/Wavs/GrenadeLauncher_Explosion02.GrenadeLauncher_Explosion02'"));
-	UGameplayStatics::PlaySoundAtLocation(this,SoundWave,GetActorLocation());
-	/*发射子弹*/
-	ABullet* Bullet = GetWorld()->SpawnActor<ABullet>(GetActorLocation(),GetActorRotation());
-	// GetWorld()->SpawnActor<AParagonTwinblastCharacter>( FVector(400.f,47767.6875f,24717.435547f),FRotator(0.0f,0.f,0.f));
-	// UE_LOG(LogTemp,Error,TEXT("测试生成AParagonTwinblastCharacter"));
+	/*射击*/
+	UE_LOG(LogTemp,Error,TEXT("1 %s"),*GetName());
+	StartFire();
+	UE_LOG(LogTemp,Error,TEXT("2 %s"),*GetName());
 }
 
 void AParagonTwinblastCharacter::SwitchCharacters()
@@ -70,4 +66,41 @@ TEXT("WidgetBlueprint'/Game/AimatWidgetBlueprint.AimatWidgetBlueprint_C'")));
 void AParagonTwinblastCharacter::SwitchWeapon()
 {
 	K2_AttachRootComponentToActor(this,FName("weapon_l"));
+}
+
+void AParagonTwinblastCharacter::StartFire()
+{
+	if (!bIsFiringWeapon)
+	{
+		bIsFiringWeapon = true;
+		UWorld* World = GetWorld();
+		World->GetTimerManager().SetTimer(FiringTimer,this,&AParagonTwinblastCharacter::StopFire,FireRate,false);
+		/*攻击蒙太奇动画*/ 
+		UAnimMontage* AnimMontage = LoadObject<UAnimMontage>(nullptr,
+			TEXT("AnimMontage'/Game/Resources/Characters/ParagonTwinblast/Characters/Heroes/TwinBlast/Animations/DoubleShot_Fire_Lft_Montage.DoubleShot_Fire_Lft_Montage'"));
+		PlayAnimMontage(AnimMontage);
+		HandleFire();
+	}
+}
+
+void AParagonTwinblastCharacter::StopFire()
+{
+	bIsFiringWeapon = false;
+}
+
+void AParagonTwinblastCharacter::HandleFire_Implementation()
+{
+	FVector spawnLocation = GetActorLocation() + ( GetControlRotation().Vector()  * 100.0f ) + (GetActorUpVector() * 50.0f);
+	FRotator spawnRotation = GetControlRotation();
+
+	FActorSpawnParameters spawnParameters;
+	spawnParameters.Instigator = GetInstigator();
+	spawnParameters.Owner = this;
+
+	ABullet* spawnedProjectile = GetWorld()->SpawnActor<ABullet>(spawnLocation, spawnRotation, spawnParameters);
+	
+	/*攻击声音*/
+	USoundWave* SoundWave = LoadObject<USoundWave>(nullptr,
+		TEXT("SoundWave'/Game/Resources/Weapons/MilitaryWeapDark/Sound/GrenadeLauncher/Wavs/GrenadeLauncher_Explosion02.GrenadeLauncher_Explosion02'"));
+	UGameplayStatics::PlaySoundAtLocation(this,SoundWave,GetActorLocation());
 }

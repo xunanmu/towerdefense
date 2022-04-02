@@ -81,6 +81,5 @@ void UStartUserWidget::Set()
 	UUserWidget* UserWidget = CreateWidget<UUserWidget>(GetGameInstance(),
 		LoadClass<UUserWidget>(nullptr,
 			TEXT("WidgetBlueprint'/Game/TowerDefense/UI/BP_SetWidget.BP_SetWidget_C'")));
-
 	UserWidget->AddToViewport();
 }

@@ -26,7 +26,18 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	/*属性复制*/
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProperties)const override;
+
+	/*承受伤害的事件*/
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+	
+
 protected:
+	/*武器粒子，如子弹，远程攻击治疗*/
+	UPROPERTY(EditDefaultsOnly, Category="Gameplay|Projectile")
+	TSubclassOf<class ABaseWeaponParticle> ProjectileClass;
+	
 	class USpringArmComponent* SpringArmComponent;
 	class UCameraComponent* CameraComponent;
 	class UCapsuleComponent* CapsuleComponent;
@@ -36,6 +47,23 @@ private:
 	void MoveRight(float Value);
 	void MoveLeft(float Value);
 public:
+	/*玩家生命值*/
+	UPROPERTY(EditAnywhere,BlueprintReadOnly)
+	int MaxHealth;
+	/*玩家当前生命值，同步*/
+	UPROPERTY(ReplicatedUsing=OnRep_CurrentHealth)
+	int CurrentHealth;
+	UFUNCTION()
+	void OnRep_CurrentHealth();
+	void OnHealthUpdate();
+	UFUNCTION()
+	FORCEINLINE int GetMaxHealth() const {return MaxHealth;}
+	UFUNCTION()
+	FORCEINLINE int GetCurrentHealth() const {return CurrentHealth;}
+	/** 当前生命值的存值函数。将此值的范围限定在0到MaxHealth之间，并调用OnHealthUpdate。仅在服务器上调用。*/
+	UFUNCTION()
+	void SetCurrentHealth(int healthValue);
+	
 	
 	/*攻击值*/
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
@@ -43,9 +71,6 @@ public:
 	/*防御值*/
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	int DefenseValue;
-	/*生命值*/
-	UPROPERTY(EditAnywhere,BlueprintReadOnly)
-	int LifeValue;
 	// /*速度值*/
 	// UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	// int SpeedValue;
@@ -58,5 +83,5 @@ public:
 	virtual void SwitchCharacters(){}
 	/*切换武器*/
 	virtual void SwitchWeapon(){}
-	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+	
 };
