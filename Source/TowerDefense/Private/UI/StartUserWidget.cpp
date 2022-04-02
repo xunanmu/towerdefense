@@ -57,7 +57,7 @@ bool UStartUserWidget::Initialize()
 void UStartUserWidget::StartGame()
 {
 	UE_LOG(LogTemp,Error,TEXT("开始游戏"));
-	// UGameplayStatics::OpenLevel(GetWorld(),FName("TerrainDemo1"));
+	UGameplayStatics::OpenLevel(GetWorld(),FName(TEXT("127.0.0.1:23333")));
 	this->RemoveFromViewport();
 }
 

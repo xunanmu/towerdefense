@@ -29,8 +29,10 @@ private:
 	bool bIsFiringWeapon;
 
 	/** 用于启动武器射击的函数。*/
-	UFUNCTION(BlueprintCallable, Category="Gameplay")
 	void StartFire();
+
+	UFUNCTION(NetMulticast,Reliable)
+	void PlayAttack();
 
 	/** 用于结束武器射击的函数。一旦调用这段代码，玩家可再次使用StartFire。*/
 	UFUNCTION(BlueprintCallable, Category = "Gameplay")
