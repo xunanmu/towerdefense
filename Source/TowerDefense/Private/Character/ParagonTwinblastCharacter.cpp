@@ -7,13 +7,12 @@
 #include "Blueprint/UserWidget.h"
 #include "Engine/SkeletalMeshSocket.h"
 #include "Kismet/GameplayStatics.h"
-#include "TowerDefense/TowerDefenseGameModeBase.h"
 #include "Weapon/WeaponParticle/Bullet.h"
 
 AParagonTwinblastCharacter::AParagonTwinblastCharacter()
 {
 	/*开启远程复制*/
-	bReplicates = true;
+	// bReplicates = true;
 	//初始化投射物类
 	ProjectileClass = ABullet::StaticClass();
 	//初始化射速
