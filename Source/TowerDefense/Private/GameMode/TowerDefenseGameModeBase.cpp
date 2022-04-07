@@ -12,7 +12,7 @@
 
 ATowerDefenseGameModeBase::ATowerDefenseGameModeBase()
 {
-	static ConstructorHelpers::FClassFinder<AParagonTwinblastCharacter> BPClass(TEXT("Blueprint'/Game/TowerDefense/UI/BackpackUserWidget_BP/NewBlueprint.NewBlueprint_C'"));
+	static ConstructorHelpers::FClassFinder<AParagonTwinblastCharacter> BPClass(TEXT("Blueprint'/Game/TowerDefense/UI/BackpackUserWidget_BP/BP_TEST.BP_TEST_C'"));
 	DefaultPawnClass = BPClass.Class;
 	PlayerControllerClass = ACharacterPlayerController::StaticClass();
 	

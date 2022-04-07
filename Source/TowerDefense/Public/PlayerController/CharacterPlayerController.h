@@ -29,13 +29,19 @@ public:
 
 	bool bAimat;
 	bool bBackPack;
+	bool bSetWidget;
 
 	/*设置敌人血条可见*/
 	void SetEnemyHealthBarVisibility(bool bVisibility);
 	/*根据敌人位置更新血条显示位置*/
 	void UpdateEnemyHealthBarPosition(FVector Position);
+	/*退出游戏*/
+	void ExitGame();
+	/*openSetWidget*/
+	void OpenSetWidget();
 private:
 	UUserWidget* Aimat;
 	UUserWidget* BackpackUserWidget;
 	UHealthUserWidget* EnemyHealthUserWidget;
+	UUserWidget* SetWidget;
 };

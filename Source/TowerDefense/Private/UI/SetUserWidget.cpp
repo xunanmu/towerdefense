@@ -4,6 +4,7 @@
 #include "UI/SetUserWidget.h"
 
 #include "Components/Button.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 bool USetUserWidget::Initialize()
 {
@@ -13,6 +14,7 @@ bool USetUserWidget::Initialize()
 		EnemyDifficultyButton = Cast<UButton>(GetWidgetFromName("EnemyDifficultyButton"));
 		EnemyKindButton = Cast<UButton>(GetWidgetFromName("EnemyKindButton"));
 		CloseButton = Cast<UButton>(GetWidgetFromName("CloseButton"));
+		ExitGameButton = Cast<UButton>(GetWidgetFromName("ExitGameButton"));
 		if (HangUpButton)
 		{
 			HangUpButton->OnClicked.AddDynamic(this, &USetUserWidget::HandUp);
@@ -28,6 +30,10 @@ bool USetUserWidget::Initialize()
 		if (CloseButton)
 		{
 			CloseButton->OnClicked.AddDynamic(this, &USetUserWidget::Close);
+		}
+		if (ExitGameButton)
+		{
+			ExitGameButton->OnClicked.AddDynamic(this,&USetUserWidget::ExitGame);
 		}
 		return true;
 	}
@@ -50,4 +56,9 @@ void USetUserWidget::EnemyKind()
 void USetUserWidget::Close()
 {
 	this->RemoveFromViewport();
+}
+
+void USetUserWidget::ExitGame()
+{
+	UKismetSystemLibrary::QuitGame(this, nullptr, EQuitPreference::Quit,true);
 }

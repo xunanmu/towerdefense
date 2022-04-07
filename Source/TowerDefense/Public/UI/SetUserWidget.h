@@ -23,9 +23,11 @@ public:
 	UFUNCTION() void EnemyDifficulty();
 	UFUNCTION() void EnemyKind();
 	UFUNCTION() void Close();
+	UFUNCTION() void ExitGame();
 private:
 	class UButton* HangUpButton;
 	class UButton* EnemyDifficultyButton;
 	class UButton* EnemyKindButton;
 	class UButton* CloseButton;
+	class UButton* ExitGameButton;
 };

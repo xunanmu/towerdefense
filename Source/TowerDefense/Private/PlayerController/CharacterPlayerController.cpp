@@ -32,6 +32,15 @@ ACharacterPlayerController::ACharacterPlayerController()
 		bBackPack = true;
 	}
 
+	/*加载设置按钮*/
+	static ConstructorHelpers::FClassFinder<UUserWidget> SetUserWidget_BP(TEXT("WidgetBlueprint'/Game/TowerDefense/UI/BP_SetWidget.BP_SetWidget_C'"));
+    SetWidget = CreateWidget<UUserWidget>(AActor::GetWorld(),SetUserWidget_BP.Class);
+	if (SetWidget)
+	{
+		SetWidget->AddToViewport();
+		SetWidget->SetVisibility(ESlateVisibility::Collapsed);
+		bSetWidget = true;
+	}
 	/*敌人血条*/
 	// 初始化操作
 	// static ConstructorHelpers::FClassFinder<UHealthUserWidget> HealthUserWidget(TEXT("WidgetBlueprint'/Game/TowerDefense/UI/BP_HealthWidget.BP_HealthWidget'"));
@@ -115,10 +124,35 @@ void ACharacterPlayerController::UpdateEnemyHealthBarPosition(FVector Position)
 	}
 }
 
+void ACharacterPlayerController::ExitGame()
+{
+	UUserWidget* UserWidget = CreateWidget<UUserWidget>(AActor::GetWorld(),
+		LoadClass<UUserWidget>(nullptr,
+			TEXT("WidgetBlueprint'/Game/TowerDefense/UI/BP_EndWidget.BP_EndWidget_C'")));
+
+	UserWidget->AddToViewport();
+}
+
+void ACharacterPlayerController::OpenSetWidget()
+{
+	if (bSetWidget)
+	{
+		SetWidget->SetVisibility(ESlateVisibility::Visible);
+		bSetWidget= false;
+	}
+	else
+	{
+		SetWidget->SetVisibility(ESlateVisibility::Collapsed);
+		bSetWidget = true;
+	}
+}
+
 
 void ACharacterPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 	InputComponent->BindAction("B",IE_Pressed,this,&ACharacterPlayerController::OpenBackpack);
 	InputComponent->BindAction("J",IE_Pressed,this,&ACharacterPlayerController::OpenAimat);
+	InputComponent->BindAction("Esc",IE_Pressed,this,&ACharacterPlayerController::ExitGame);
+	InputComponent->BindAction("set",IE_Pressed,this,&ACharacterPlayerController::OpenSetWidget);
 }
