@@ -3,6 +3,7 @@
 
 #include "GameMode/StartGameMode.h"
 
+#include "Kismet/GameplayStatics.h"
 #include "UI/StartUserWidget.h"
 
 void AStartGameMode::BeginPlay()
@@ -12,6 +13,6 @@ void AStartGameMode::BeginPlay()
 	UStartUserWidget* StartUserWidget = CreateWidget<UStartUserWidget>(GetGameInstance(),
 		LoadClass<UStartUserWidget>(nullptr,
 			TEXT("WidgetBlueprint'/Game/TowerDefense/UI/BP_StartWidget.BP_StartWidget_C'")));
-
+	
 	StartUserWidget->AddToViewport();
 }

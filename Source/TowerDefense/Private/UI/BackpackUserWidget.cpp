@@ -3,3 +3,7 @@
 
 #include "UI/BackpackUserWidget.h"
 
+bool UBackpackUserWidget::Initialize()
+{
+	return Super::Initialize();
+}

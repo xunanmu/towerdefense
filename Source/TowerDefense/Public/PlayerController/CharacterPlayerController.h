@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "UI/BackpackUserWidget.h"
 #include "CharacterPlayerController.generated.h"
 
 /**
@@ -17,6 +18,17 @@ public:
 	ACharacterPlayerController();
 	virtual void SetupInputComponent() override;
 	virtual void BeginPlay() override;
+	
+	virtual void Tick(float DeltaSeconds) override;
+
+	/*打开背包*/
+	void OpenBackpack();
+	/*打开瞄准*/
+	void OpenAimat();
+
+	bool bAimat;
+	bool bBackPack;
+private:
 	UUserWidget* Aimat;
-	// virtual void Tick(float DeltaSeconds) override;
+	UUserWidget* BackpackUserWidget;
 };

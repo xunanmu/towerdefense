@@ -57,7 +57,11 @@ bool UStartUserWidget::Initialize()
 void UStartUserWidget::StartGame()
 {
 	UE_LOG(LogTemp,Error,TEXT("开始游戏"));
-	UGameplayStatics::OpenLevel(GetWorld(),FName(TEXT("127.0.0.1:23333")));
+	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	UE_LOG(LogTemp,Error,TEXT("玩家控制器：%p"),PlayerController)
+	PlayerController->ClientTravel(TEXT("127.0.0.1:23333"), ETravelType::TRAVEL_Absolute);
+	// UGameplayStatics::OpenLevel(GetGameInstance(),FName(TEXT("127.0.0.1:23333")));
+	// UGameplayStatics::OpenLevel(GetWorld(),FName("TerrainDemo1"));
 	// this->RemoveFromViewport();
 }
 

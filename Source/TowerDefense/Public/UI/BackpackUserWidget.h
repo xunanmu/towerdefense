@@ -13,5 +13,7 @@ UCLASS()
 class TOWERDEFENSE_API UBackpackUserWidget : public UUserWidget
 {
 	GENERATED_BODY()
-	
+public:
+	UBackpackUserWidget(const FObjectInitializer& ObjectInitializer):Super(ObjectInitializer){}
+	virtual bool Initialize() override;
 };
