@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "LifeUserWidget.generated.h"
+#include "HealthUserWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TOWERDEFENSE_API ULifeUserWidget : public UUserWidget
+class TOWERDEFENSE_API UHealthUserWidget : public UUserWidget
 {
 	GENERATED_BODY()
 	

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Character/BaseCharacter.h"
+#include "UI/HealthUserWidget.h"
 #include "ParagonTwinblastCharacter.generated.h"
 
 /**
@@ -46,5 +47,6 @@ private:
 	FTimerHandle FiringTimer;
 	
 	class USkeletalMesh* ParagonTwinblastSkeletalMesh;
-	UUserWidget* Aimat ;
+
+	UHealthUserWidget* HealthUserWidget;
 };

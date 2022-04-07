@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "UI/BackpackUserWidget.h"
+#include "UI/HealthUserWidget.h"
 #include "CharacterPlayerController.generated.h"
 
 /**
@@ -28,7 +29,13 @@ public:
 
 	bool bAimat;
 	bool bBackPack;
+
+	/*设置敌人血条可见*/
+	void SetEnemyHealthBarVisibility(bool bVisibility);
+	/*根据敌人位置更新血条显示位置*/
+	void UpdateEnemyHealthBarPosition(FVector Position);
 private:
 	UUserWidget* Aimat;
 	UUserWidget* BackpackUserWidget;
+	UHealthUserWidget* EnemyHealthUserWidget;
 };

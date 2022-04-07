@@ -25,7 +25,7 @@ ABaseCharacter::ABaseCharacter()
 	/*设置根组件*/
 	SpringArmComponent->bUsePawnControlRotation = true;
 	SpringArmComponent->SetupAttachment(RootComponent);
-
+	
 	/*初始摄像机*/
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	/*设置摄像机视野*/

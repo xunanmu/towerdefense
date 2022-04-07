@@ -3,3 +3,7 @@
 
 #include "UI/ItemsWindowUserWidget.h"
 
+bool UItemsWindowUserWidget::Initialize()
+{
+	return Super::Initialize();
+}

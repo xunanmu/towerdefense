@@ -31,6 +31,15 @@ ACharacterPlayerController::ACharacterPlayerController()
 		BackpackUserWidget->SetVisibility(ESlateVisibility::Collapsed);
 		bBackPack = true;
 	}
+
+	/*敌人血条*/
+	// 初始化操作
+	// static ConstructorHelpers::FClassFinder<UHealthUserWidget> HealthUserWidget(TEXT("WidgetBlueprint'/Game/TowerDefense/UI/BP_HealthWidget.BP_HealthWidget'"));
+	// // EnemyHealthUserWidget = CreateWidget<UHealthUserWidget>(this, HealthUserWidget.Class);
+	// if (EnemyHealthUserWidget) {
+	// 	EnemyHealthUserWidget->SetVisibility(ESlateVisibility::Hidden);
+	// 	EnemyHealthUserWidget->AddToViewport();
+	// }
 	
 }
 
@@ -72,6 +81,37 @@ void ACharacterPlayerController::OpenAimat()
 	{
 		Aimat->SetVisibility(ESlateVisibility::Collapsed);
 		bAimat = true;
+	}
+}
+
+void ACharacterPlayerController::SetEnemyHealthBarVisibility(bool bVisibility)
+{
+	if (EnemyHealthUserWidget)
+	{
+		if (bVisibility) {
+			EnemyHealthUserWidget->SetVisibility(ESlateVisibility::Visible);
+		}
+		else {
+			EnemyHealthUserWidget->SetVisibility(ESlateVisibility::Hidden);
+		}
+	}
+}
+
+void ACharacterPlayerController::UpdateEnemyHealthBarPosition(FVector Position)
+{
+	if (EnemyHealthUserWidget) {
+		// 将血条位置抬高之后变成输出到屏幕的位置
+		FVector2D ScreenPosition;
+		FVector TargetPosition = FVector(Position.X, Position.Y, Position.Z + 150);
+		ProjectWorldLocationToScreen(TargetPosition, ScreenPosition);
+
+		// 设置它在屏幕显示的大小
+		FVector2D ScreenSize(200, 25);
+
+		// 居中计算
+		ScreenPosition.X -= ScreenSize.X * 0.5f;
+		EnemyHealthUserWidget->SetPositionInViewport(ScreenPosition); 
+		EnemyHealthUserWidget->SetDesiredSizeInViewport(ScreenPosition);
 	}
 }
 

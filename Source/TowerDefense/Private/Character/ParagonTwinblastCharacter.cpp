@@ -11,6 +11,7 @@
 
 AParagonTwinblastCharacter::AParagonTwinblastCharacter()
 {
+	PrimaryActorTick.bCanEverTick = true;
 	/*开启远程复制*/
 	// bReplicates = true;
 	//初始化投射物类
@@ -19,11 +20,11 @@ AParagonTwinblastCharacter::AParagonTwinblastCharacter()
 	FireRate = 0.25f;
 	bIsFiringWeapon = false;
 	
-	//加载骨骼网格体
-	ParagonTwinblastSkeletalMesh = LoadObject<USkeletalMesh>(nullptr,
-		TEXT("SkeletalMesh'/Game/Resources/Characters/ParagonTwinblast/Characters/Heroes/TwinBlast/Meshes/TwinBlast.TwinBlast'"));
-	GetMesh()->SetSkeletalMesh(ParagonTwinblastSkeletalMesh);
-	// 指定动画
+	 /*加载骨骼网格体*/
+	 ParagonTwinblastSkeletalMesh = LoadObject<USkeletalMesh>(nullptr,
+	 	TEXT("SkeletalMesh'/Game/Resources/Characters/ParagonTwinblast/Characters/Heroes/TwinBlast/Meshes/TwinBlast.TwinBlast'"));
+	 GetMesh()->SetSkeletalMesh(ParagonTwinblastSkeletalMesh);
+	/*指定动画*/
 	static ConstructorHelpers::FClassFinder<UAnimInstance> ParagonTwinblastAnimInstance(
 		TEXT("AnimBlueprint'/Game/Resources/Characters/ParagonTwinblast/Characters/Heroes/TwinBlast/Twinblast_AnimBlueprint.Twinblast_AnimBlueprint_C'"));
 	if(ParagonTwinblastAnimInstance.Class)
@@ -58,8 +59,9 @@ void AParagonTwinblastCharacter::SwitchCharacters()
 
 void AParagonTwinblastCharacter::SwitchWeapon()
 {
-	K2_AttachRootComponentToActor(this,FName("weapon_l"));
+	AttachToActor(this,	FAttachmentTransformRules(EAttachmentRule::KeepWorld,true),FName("weapon_l"));
 }
+
 
 void AParagonTwinblastCharacter::StartFire()
 {
@@ -81,7 +83,7 @@ void AParagonTwinblastCharacter::PlayAttack_Implementation()
 	PlayAnimMontage(AnimMontage);
 	/*攻击声音*/
 	USoundWave* SoundWave = LoadObject<USoundWave>(nullptr,
-		TEXT("SoundWave'/Game/Resources/Weapons/MilitaryWeapDark/Sound/GrenadeLauncher/Wavs/GrenadeLauncher_Explosion02.GrenadeLauncher_Explosion02'"));
+		TEXT("SoundWave'/Game/Resources/Weapon/MilitaryWeapDark/Sound/Rifle/Wavs/RifleB_Fire06.RifleB_Fire06'"));
 	UGameplayStatics::PlaySoundAtLocation(this,SoundWave,GetActorLocation());
 }
 
