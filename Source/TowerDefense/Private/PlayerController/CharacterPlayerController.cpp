@@ -41,6 +41,15 @@ ACharacterPlayerController::ACharacterPlayerController()
 		SetWidget->SetVisibility(ESlateVisibility::Collapsed);
 		bSetWidget = true;
 	}
+	/*显示血条*/
+	// static ConstructorHelpers::FClassFinder<UHealthUserWidget> HealthWidget_BP(TEXT("WidgetBlueprint'/Game/TowerDefense/UI/BP_HealthWidget.BP_HealthWidget_C'"));
+	// HealthUserWidget = CreateWidget<UHealthUserWidget>(AActor::GetWorld(),HealthWidget_BP.Class);
+	// if (HealthUserWidget)
+	// {
+	// 	HealthUserWidget->AddToViewport();
+	// 	HealthUserWidget->SetVisibility(ESlateVisibility::Collapsed);
+	// 	bHealthWidget = true;
+	// }
 	/*敌人血条*/
 	// 初始化操作
 	// static ConstructorHelpers::FClassFinder<UHealthUserWidget> HealthUserWidget(TEXT("WidgetBlueprint'/Game/TowerDefense/UI/BP_HealthWidget.BP_HealthWidget'"));
@@ -93,36 +102,36 @@ void ACharacterPlayerController::OpenAimat()
 	}
 }
 
-void ACharacterPlayerController::SetEnemyHealthBarVisibility(bool bVisibility)
-{
-	if (EnemyHealthUserWidget)
-	{
-		if (bVisibility) {
-			EnemyHealthUserWidget->SetVisibility(ESlateVisibility::Visible);
-		}
-		else {
-			EnemyHealthUserWidget->SetVisibility(ESlateVisibility::Hidden);
-		}
-	}
-}
-
-void ACharacterPlayerController::UpdateEnemyHealthBarPosition(FVector Position)
-{
-	if (EnemyHealthUserWidget) {
-		// 将血条位置抬高之后变成输出到屏幕的位置
-		FVector2D ScreenPosition;
-		FVector TargetPosition = FVector(Position.X, Position.Y, Position.Z + 150);
-		ProjectWorldLocationToScreen(TargetPosition, ScreenPosition);
-
-		// 设置它在屏幕显示的大小
-		FVector2D ScreenSize(200, 25);
-
-		// 居中计算
-		ScreenPosition.X -= ScreenSize.X * 0.5f;
-		EnemyHealthUserWidget->SetPositionInViewport(ScreenPosition); 
-		EnemyHealthUserWidget->SetDesiredSizeInViewport(ScreenPosition);
-	}
-}
+// void ACharacterPlayerController::SetEnemyHealthBarVisibility(bool bVisibility)
+// {
+// 	if (EnemyHealthUserWidget)
+// 	{
+// 		if (bVisibility) {
+// 			EnemyHealthUserWidget->SetVisibility(ESlateVisibility::Visible);
+// 		}
+// 		else {
+// 			EnemyHealthUserWidget->SetVisibility(ESlateVisibility::Hidden);
+// 		}
+// 	}
+// }
+//
+// void ACharacterPlayerController::UpdateEnemyHealthBarPosition(FVector Position)
+// {
+// 	if (EnemyHealthUserWidget) {
+// 		// 将血条位置抬高之后变成输出到屏幕的位置
+// 		FVector2D ScreenPosition;
+// 		FVector TargetPosition = FVector(Position.X, Position.Y, Position.Z + 150);
+// 		ProjectWorldLocationToScreen(TargetPosition, ScreenPosition);
+//
+// 		// 设置它在屏幕显示的大小
+// 		FVector2D ScreenSize(200, 25);
+//
+// 		// 居中计算
+// 		ScreenPosition.X -= ScreenSize.X * 0.5f;
+// 		EnemyHealthUserWidget->SetPositionInViewport(ScreenPosition); 
+// 		EnemyHealthUserWidget->SetDesiredSizeInViewport(ScreenPosition);
+// 	}
+// }
 
 void ACharacterPlayerController::ExitGame()
 {
@@ -147,6 +156,21 @@ void ACharacterPlayerController::OpenSetWidget()
 	}
 }
 
+void ACharacterPlayerController::ShowHealthWidget()
+{
+	if (bHealthWidget)
+	{
+		 HealthUserWidget->SetVisibility(ESlateVisibility::Visible);
+		 bHealthWidget = false;
+	}
+	else
+	{
+		HealthUserWidget->SetVisibility(ESlateVisibility::Collapsed);
+		bHealthWidget = true;
+	}
+		
+}
+
 
 void ACharacterPlayerController::SetupInputComponent()
 {
@@ -155,4 +179,5 @@ void ACharacterPlayerController::SetupInputComponent()
 	InputComponent->BindAction("J",IE_Pressed,this,&ACharacterPlayerController::OpenAimat);
 	InputComponent->BindAction("Esc",IE_Pressed,this,&ACharacterPlayerController::ExitGame);
 	InputComponent->BindAction("set",IE_Pressed,this,&ACharacterPlayerController::OpenSetWidget);
+	InputComponent->BindAction("H",IE_Pressed,this,&ACharacterPlayerController::ShowHealthWidget);
 }

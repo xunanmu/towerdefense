@@ -4,6 +4,7 @@
 #include "Character/ParagonTwinblastCharacter.h"
 
 
+#include "PhysXInterfaceWrapperCore.h"
 #include "Blueprint/UserWidget.h"
 #include "Engine/SkeletalMeshSocket.h"
 #include "Kismet/GameplayStatics.h"
@@ -31,16 +32,21 @@ AParagonTwinblastCharacter::AParagonTwinblastCharacter()
 	{
 		GetMesh()->SetAnimInstanceClass(ParagonTwinblastAnimInstance.Class);
 	}
+	
+}
 
+void AParagonTwinblastCharacter::BeginPlay()
+{
+	Super::BeginPlay();
 
-	// if (StartingWidgetClass != nullptr) 
-	// {
-	// 	CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), StartingWidgetClass);
-	// 	if (CurrentWidget != nullptr)
-	// 	{
-	// 		CurrentWidget->AddToViewport();
-	// 	}
-	// }
+}
+
+void AParagonTwinblastCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	// FVector2D HealthProgressBarLocation(GetActorLocation().X,GetActorLocation().Y);
+	// HealthUserWidget->UpdateLocation(HealthProgressBarLocation);
+	// UE_LOG(LogTemp,Error,TEXT("Tick显示血条"));
 }
 
 

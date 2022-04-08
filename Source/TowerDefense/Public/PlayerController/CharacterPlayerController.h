@@ -30,6 +30,7 @@ public:
 	bool bAimat;
 	bool bBackPack;
 	bool bSetWidget;
+	bool bHealthWidget;
 
 	/*设置敌人血条可见*/
 	void SetEnemyHealthBarVisibility(bool bVisibility);
@@ -39,9 +40,11 @@ public:
 	void ExitGame();
 	/*openSetWidget*/
 	void OpenSetWidget();
+
+	void ShowHealthWidget();
 private:
 	UUserWidget* Aimat;
 	UUserWidget* BackpackUserWidget;
-	UHealthUserWidget* EnemyHealthUserWidget;
+	UHealthUserWidget* HealthUserWidget;
 	UUserWidget* SetWidget;
 };

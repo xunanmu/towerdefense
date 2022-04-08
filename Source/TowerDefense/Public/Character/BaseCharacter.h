@@ -37,10 +37,16 @@ protected:
 	/*武器粒子，如子弹，远程攻击治疗*/
 	UPROPERTY(EditDefaultsOnly, Category="Gameplay|Projectile")
 	TSubclassOf<class ABaseWeaponParticle> ProjectileClass;
-	
+
+	UPROPERTY(Category=Character, VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
 	class USpringArmComponent* SpringArmComponent;
+	UPROPERTY(Category=Character, VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
 	class UCameraComponent* CameraComponent;
 	class UCapsuleComponent* CapsuleComponent;
+	UPROPERTY(Category=Character, VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
+	class UWidgetComponent* HealthComponent;
+	UPROPERTY(Category=Character, VisibleAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
+	class UHealthUserWidget* HealthUserWidget;
 private:
 	void MoveForWard(float Value);
 	void MoveBack(float Value);
@@ -64,7 +70,7 @@ public:
 	UFUNCTION()
 	void SetCurrentHealth(int healthValue);
 	
-	
+	/**/
 	/*攻击值*/
 	UPROPERTY(EditAnywhere,BlueprintReadOnly)
 	int AttackValue;
@@ -83,5 +89,6 @@ public:
 	virtual void SwitchCharacters(){}
 	/*切换武器*/
 	virtual void SwitchWeapon(){}
+	
 	
 };

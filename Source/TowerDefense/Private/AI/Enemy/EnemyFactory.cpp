@@ -4,6 +4,7 @@
 #include "AI/Enemy/EnemyFactory.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "AI/Enemy/EnemyAIController.h"
+#include "Character/EnemyParagonTwinblastCharacter.h"
 #include "Character/ParagonTwinblastCharacter.h"
 
 // Sets default values
@@ -42,7 +43,7 @@ ABaseCharacter* AEnemyFactory::RandomCreatePawn()
 	/*以后维护switch就好了*/
 	switch (RandomNumber)
 	{
-	case 0: return GetWorld()->SpawnActor<AParagonTwinblastCharacter>(ActorLocation,ActorRotation,SpawnParameters);
+	case 0: return GetWorld()->SpawnActor<AEnemyParagonTwinblastCharacter>(ActorLocation,ActorRotation,SpawnParameters);
 	default: ;
 	}
 	return nullptr;

@@ -5,15 +5,17 @@
 
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Net/UnrealNetwork.h"
+#include "UI/HealthUserWidget.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 	
 	/*初始化人物的位置和朝向*/
 	GetMesh()->SetRelativeLocation(FVector(0,0,-90));
@@ -32,10 +34,24 @@ ABaseCharacter::ABaseCharacter()
 	CameraComponent->FieldOfView = 85.0f;
 	/*绑定到摄像机手臂组件*/
 	CameraComponent->SetupAttachment(SpringArmComponent);
+	
 	/*初始化碰撞体*/
 	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleComponent"));
 	CapsuleComponent->SetCapsuleSize(34.0f,94.0f);
 	CapsuleComponent->SetupAttachment(RootComponent);
+
+	/*初始血条*/
+	HealthComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("HealthComponent"));
+	static auto HealthWidget_BP = LoadClass<UHealthUserWidget>(nullptr,
+		TEXT("WidgetBlueprint'/Game/TowerDefense/UI/BP_HealthWidget.BP_HealthWidget_C'"));
+	UE_LOG(LogTemp,Error,TEXT("%s->{HealthWidget_BP:%p,HealthUserWidget:%p}"),*GetName(),HealthWidget_BP,HealthUserWidget)
+	HealthComponent->SetWidgetClass(HealthWidget_BP);
+	HealthComponent->SetWidgetSpace(EWidgetSpace::Screen);
+	HealthComponent->SetRelativeLocation(FVector(0,0,100));
+	HealthComponent->SetupAttachment(RootComponent);
+	
+
+	
 	/*初始速度默认值*/
 	GetCharacterMovement()->MaxWalkSpeed = 700;
 	/*初始攻击默认值*/

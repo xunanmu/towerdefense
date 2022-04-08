@@ -17,6 +17,8 @@ class TOWERDEFENSE_API AParagonTwinblastCharacter : public ABaseCharacter
 
 public:
 	AParagonTwinblastCharacter();
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 	virtual void Attack() override;
 	virtual void SwitchCharacters() override;
 	virtual void SwitchWeapon() override;
@@ -47,6 +49,5 @@ private:
 	FTimerHandle FiringTimer;
 	
 	class USkeletalMesh* ParagonTwinblastSkeletalMesh;
-
-	UHealthUserWidget* HealthUserWidget;
+	
 };
