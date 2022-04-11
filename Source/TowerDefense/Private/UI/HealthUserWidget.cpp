@@ -8,7 +8,6 @@ bool UHealthUserWidget::Initialize()
 	if (Super::Initialize())
 	{
 		HealthProgressBar = Cast<UProgressBar>(GetWidgetFromName(TEXT("HealthProgressBar")));
-
 		return true;
 	}
 	return false;
@@ -17,6 +16,7 @@ bool UHealthUserWidget::Initialize()
 void UHealthUserWidget::UpdateHealthProgressBar(float Value)
 {
 	HealthProgressBar->SetPercent(Value);
+	UE_LOG(LogTemp,Error,TEXT("[%s,%f]"),*GetName(),HealthProgressBar->Percent);
 }
 
 

@@ -12,7 +12,6 @@
 
 AParagonTwinblastCharacter::AParagonTwinblastCharacter()
 {
-	PrimaryActorTick.bCanEverTick = true;
 	/*开启远程复制*/
 	// bReplicates = true;
 	//初始化投射物类
@@ -44,9 +43,6 @@ void AParagonTwinblastCharacter::BeginPlay()
 void AParagonTwinblastCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	// FVector2D HealthProgressBarLocation(GetActorLocation().X,GetActorLocation().Y);
-	// HealthUserWidget->UpdateLocation(HealthProgressBarLocation);
-	// UE_LOG(LogTemp,Error,TEXT("Tick显示血条"));
 }
 
 
@@ -93,7 +89,7 @@ void AParagonTwinblastCharacter::PlayAttack_Implementation()
 	UGameplayStatics::PlaySoundAtLocation(this,SoundWave,GetActorLocation());
 }
 
-void AParagonTwinblastCharacter::StopFire()
+void AParagonTwinblastCharacter:: StopFire()
 {
 	bIsFiringWeapon = false;
 }

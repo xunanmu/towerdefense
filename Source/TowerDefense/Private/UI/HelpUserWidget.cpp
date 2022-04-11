@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+   // Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "UI/HelpUserWidget.h"
@@ -14,7 +14,7 @@ bool UHelpUserWidget::Initialize()
 		CloseButton->OnClicked.AddDynamic(this,&UHelpUserWidget::Close);
 		return true;
 	}
-	
+	 
 	
 	return false;
 }

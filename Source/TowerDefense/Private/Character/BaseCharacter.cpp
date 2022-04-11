@@ -168,7 +168,11 @@ void ABaseCharacter::SetCurrentHealth(int healthValue)
 
 float ABaseCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
+	/*改变当前血量*/
 	float damageApplied = CurrentHealth - DamageAmount;
 	SetCurrentHealth(damageApplied);
+	/*改变当前血量进度条*/
+	HealthUserWidget = Cast<UHealthUserWidget>(HealthComponent->GetWidget());
+	HealthUserWidget->UpdateHealthProgressBar(1.f*CurrentHealth/MaxHealth);
 	return damageApplied;
 }
